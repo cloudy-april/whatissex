@@ -4,6 +4,11 @@ Reference mock-ups:
 - Primary Figma: https://www.figma.com/design/crxVrZiA7DAUt97jdQ4QVR/Untitled?node-id=0-1&t=oqojIDjg7kTeqxl7-1
 - Published prototype: https://mprestado.github.io/arngren-plus/
 
+How to pull image assets:
+- From Figma: Open the link above → select the component or frame → right-click → Export (PNG/JPG/SVG as needed). Use 2x for retina if available.
+- From the published prototype: Right-click the displayed asset → “Save image as…” for quick grabs when Figma export is unavailable.
+- If replacing with stock placeholders: Use consistent aspect ratios (hero ~16:9, cards ~4:3 square-ish) and compress to <300 KB with a free optimizer before committing.
+
 0) ASSIGNMENT CONTEXT (CS 3215 — HUMAN COMPUTER INTERACTION)
 - Institution: CAMARINES SUR POLYTECHNIC COLLEGES, College of Computer Studies (Republic of the Philippines, Nabua, Camarines Sur).
 - Course/Task: Learning Task on Interaction Design Basics for CS 3215 (Human Computer Interaction).
