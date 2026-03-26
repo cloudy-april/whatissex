@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arngren Plus | Modernized Catalog</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #0b1021;
+      --panel-strong: #0a0e1c;
+      --text: #e5e7eb;
+      --muted: #cbd5e1;
+      --primary: #60a5fa;
+      --accent: #a855f7;
+      --success: #34d399;
+      --warning: #f59e0b;
+      --danger: #f87171;
+      --border: #1f2937;
+      --shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(96,165,250,0.12), transparent 25%),
+                  radial-gradient(circle at 80% 10%, rgba(168,85,247,0.1), transparent 25%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 48px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(10,14,28,0.9);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 28px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand span {
+      color: var(--accent);
+    }
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--muted);
+      transition: background 160ms ease, color 160ms ease;
+    }
+    nav a:hover, nav a:focus-visible {
+      color: var(--text);
+      background: rgba(96,165,250,0.12);
+      outline: none;
+    }
+    .search-box {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .search-box input {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      min-width: 220px;
+    }
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-weight: 600;
+      padding: 10px 14px;
+      transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+    .btn-primary {
+      background: linear-gradient(120deg, #60a5fa, #a855f7);
+      color: #0b1021;
+      box-shadow: var(--shadow);
+    }
+    .btn-ghost {
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn:hover, .btn:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+      box-shadow: 0 12px 30px rgba(96,165,250,0.28);
+    }
+    .hero {
+      max-width: 1180px;
+      margin: 28px auto 18px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      background: linear-gradient(135deg, rgba(96,165,250,0.09), rgba(168,85,247,0.05)), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 36px);
+      letter-spacing: -0.5px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(96,165,250,0.16);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .hero-list {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+    .hero-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-visual {
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 35%), var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+      align-content: center;
+    }
+    .visual-stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .filters {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px 28px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      align-items: end;
+    }
+    .field label {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel-strong);
+      color: var(--text);
+    }
+    .categories {
+      max-width: 1180px;
+      margin: 18px auto;
+      padding: 0 28px;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 140ms ease;
+    }
+    .pill.active {
+      background: rgba(96,165,250,0.15);
+      color: var(--text);
+      border-color: #60a5fa;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+    .card figure {
+      margin: 0;
+      aspect-ratio: 4 / 3;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(140deg, rgba(96,165,250,0.15), rgba(168,85,247,0.15));
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .card .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .card h3 {
+      margin: 4px 0;
+      font-size: 17px;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .card .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .price {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .rating {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .cart-and-checkout {
+      max-width: 1180px;
+      margin: 20px auto;
+      padding: 0 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .panel h3 {
+      margin-top: 0;
+    }
+    .cart-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .cart-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .totals {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+    }
+    .estimator form,
+    .otp form {
+      display: grid;
+      gap: 12px;
+    }
+    .otp-status, .shipping-status {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 20px;
+    }
+    .pill-small {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+    footer {
+      max-width: 1180px;
+      margin: 28px auto 0;
+      padding: 18px 28px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 900px) {
+      .top-bar {
+        grid-template-columns: 1fr;
+        justify-items: start;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .search-box {
+        width: 100%;
+      }
+      .search-box input {
+        flex: 1;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="brand" aria-label="Arngren Plus home">
+        <span>Arngren</span><span class="badge">Plus</span>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#categories">Categories</a>
+        <a href="#catalog">Catalog</a>
+        <a href="#cart">Cart</a>
+        <a href="#otp">Secure checkout</a>
+      </nav>
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="Search drones, ATVs, RC, gadgets…" aria-label="Search catalog">
+        <button class="btn btn-primary" id="searchBtn" type="button">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="badge">Structured navigation • OTP checkout</div>
+        <h1>Shop gadgets with clarity, filters, and secure OTP checkout.</h1>
+        <p>Responsive grid, predictable categories, live filters, and a guided checkout with shipping estimation before payment.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#catalog">Browse featured items</a>
+          <a class="btn btn-ghost" href="#otp">See checkout safety</a>
+        </div>
+        <ul class="hero-list">
+          <li>✔️ Search + filters by price, rating, and category</li>
+          <li>✔️ Persistent cart with shipping estimation</li>
+          <li>✔️ 6-digit OTP with expiry, attempts, and lockout</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-label="Highlights">
+        <div class="visual-stat">
+          <span>Shipping estimator</span>
+          <span class="pill-small">See totals before paying</span>
+        </div>
+        <div class="visual-stat">
+          <span>OTP security</span>
+          <span class="pill-small">6 digits • 5 min expiry</span>
+        </div>
+        <div class="visual-stat">
+          <span>Responsive grid</span>
+          <span class="pill-small">Mobile-ready layout</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters" id="filters" aria-label="Search and filters">
+      <div class="field">
+        <label for="categoryFilter">Category</label>
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+          <option value="drones">Drones</option>
+          <option value="rc">RC & Robotics</option>
+          <option value="mobility">Mobility</option>
+          <option value="gadgets">Gadgets</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="priceRange">Price up to <strong id="priceValue">$2500</strong></label>
+        <input id="priceRange" type="range" min="150" max="2500" step="50" value="2500" aria-describedby="priceValue">
+      </div>
+      <div class="field">
+        <label for="sortSelect">Sort</label>
+        <select id="sortSelect">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="stockFilter">Availability</label>
+        <select id="stockFilter">
+          <option value="any">Any</option>
+          <option value="in">In stock</option>
+          <option value="low">Low stock</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="categories" id="categories">
+      <div class="section-title">
+        <h2>Shop by category</h2>
+        <div class="pill-small">Breadcrumb: Home › <span id="crumb">All</span></div>
+      </div>
+      <div class="pill-row" role="list">
+        <button class="pill active" data-cat="all">All</button>
+        <button class="pill" data-cat="drones">Drones</button>
+        <button class="pill" data-cat="rc">RC & Robotics</button>
+        <button class="pill" data-cat="mobility">Mobility</button>
+        <button class="pill" data-cat="gadgets">Gadgets</button>
+      </div>
+    </section>
+
+    <section class="categories" id="catalog">
+      <div class="section-title">
+        <h2>Featured gear</h2>
+        <span class="pill-small" id="resultCount">8 items</span>
+      </div>
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="cart-and-checkout" id="cart">
+      <div class="panel">
+        <h3>Cart & saved</h3>
+        <ul class="cart-list" id="cartList" aria-live="polite">
+          <li>No items yet — add products to preview totals.</li>
+        </ul>
+        <div class="totals">
+          <div>Items total: <span id="itemsTotal">$0</span></div>
+          <div>Shipping: <span id="shippingTotal">$0</span></div>
+          <div>Order total: <span id="orderTotal">$0</span></div>
+        </div>
+      </div>
+
+      <div class="panel estimator">
+        <h3>Shipping estimator</h3>
+        <form id="shippingForm">
+          <div class="field">
+            <label for="location">Location</label>
+            <input id="location" name="location" type="text" required placeholder="Oslo, Berlin, Manila…">
+          </div>
+          <div class="field">
+            <label for="method">Method</label>
+            <select id="method" name="method" required>
+              <option value="standard">Standard (3-5 days)</option>
+              <option value="express">Express (1-2 days)</option>
+              <option value="economy">Economy (7-10 days)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" type="submit">Estimate shipping</button>
+        </form>
+        <div class="shipping-status" id="shippingStatus" aria-live="polite">Totals are shown before payment.</div>
+      </div>
+
+      <div class="panel otp" id="otp">
+        <h3>Secure checkout (OTP)</h3>
+        <form id="otpForm">
+          <div class="field">
+            <label for="contact">Email or phone</label>
+            <input id="contact" name="contact" type="text" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="otpInput">6-digit code</label>
+            <input id="otpInput" name="otpInput" type="text" pattern="[0-9]{6}" maxlength="6" inputmode="numeric" placeholder="123456" aria-describedby="otpHelp">
+            <small id="otpHelp" style="color:var(--muted)">Codes expire after 5 minutes, 5 attempts max, 10-minute lockout after failures.</small>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" type="button" id="sendOtp">Send / Resend OTP</button>
+            <button class="btn btn-ghost" type="submit">Verify code</button>
+          </div>
+        </form>
+        <div class="otp-status" id="otpStatus" aria-live="polite">Awaiting OTP request.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Arngren Plus</strong> · Organized navigation, transparent totals, and secure OTP checkout. Responsive and accessible for desktop and mobile.
+  </footer>
+
+  <script>
+    const products = [
+      { id: 'drone-pro', name: 'Skyline Drone Pro', category: 'drones', price: 1899, rating: 4.8, stock: 'in', tag: '4K + lidar', accent: '#60a5fa', blurb: 'Flagship aerial platform with stabilized 4K video, 35min flight, and lidar obstacle sense.' },
+      { id: 'drone-mini', name: 'Scout Mini Fly', category: 'drones', price: 599, rating: 4.5, stock: 'in', tag: '249g', accent: '#a855f7', blurb: 'Travel-light quad with 2-axis gimbal, smart return-to-home, and wind-resistant mode.' },
+      { id: 'rc-rally', name: 'Volt Rally RC', category: 'rc', price: 349, rating: 4.6, stock: 'low', tag: '60 km/h', accent: '#f59e0b', blurb: 'Brushless 1:10 rally racer, metal diff, waterproof ESC, and app tuning presets.' },
+      { id: 'robot-arm', name: 'MakerBot Arm Kit', category: 'rc', price: 499, rating: 4.4, stock: 'in', tag: 'STEM', accent: '#34d399', blurb: 'Desktop robot arm kit with 4DOF, Python/Blockly control, and classroom-safe power.' },
+      { id: 'scooter', name: 'Urban Glide eScooter', category: 'mobility', price: 1299, rating: 4.3, stock: 'in', tag: '45 km range', accent: '#60a5fa', blurb: 'Dual-brake commuter scooter with regenerative drive, puncture-safe tires, and IP54.' },
+      { id: 'atv', name: 'Nordic Trail ATV', category: 'mobility', price: 2499, rating: 4.7, stock: 'low', tag: '4x4', accent: '#a855f7', blurb: 'Mid-size 4x4 ATV with winch, tow hitch, LED bar, and multi-mode power delivery.' },
+      { id: 'projector', name: 'PocketBeam Projector', category: 'gadgets', price: 289, rating: 4.2, stock: 'in', tag: '1080p', accent: '#34d399', blurb: 'Palm projector with auto-keystone, 600lm brightness, HDMI/USB-C, and battery playback.' },
+      { id: 'multitool', name: 'ArcFlex Multi-tool', category: 'gadgets', price: 119, rating: 4.5, stock: 'in', tag: 'Titanium', accent: '#f59e0b', blurb: 'Everyday carry multi-tool with locking drivers, rescue strap cutter, and 25-year warranty.' }
+    ];
+
+    const productGrid = document.querySelector('#productGrid');
+    const searchInput = document.querySelector('#searchInput');
+    const searchBtn = document.querySelector('#searchBtn');
+    const categoryFilter = document.querySelector('#categoryFilter');
+    const priceRange = document.querySelector('#priceRange');
+    const priceValue = document.querySelector('#priceValue');
+    const sortSelect = document.querySelector('#sortSelect');
+    const stockFilter = document.querySelector('#stockFilter');
+    const resultCount = document.querySelector('#resultCount');
+    const pillButtons = Array.from(document.querySelectorAll('.pill'));
+    const crumb = document.querySelector('#crumb');
+
+    const cartList = document.querySelector('#cartList');
+    const itemsTotalEl = document.querySelector('#itemsTotal');
+    const shippingTotalEl = document.querySelector('#shippingTotal');
+    const orderTotalEl = document.querySelector('#orderTotal');
+    const shippingStatus = document.querySelector('#shippingStatus');
+    const shippingForm = document.querySelector('#shippingForm');
+
+    const otpStatus = document.querySelector('#otpStatus');
+    const otpInput = document.querySelector('#otpInput');
+    const contactInput = document.querySelector('#contact');
+    const sendOtpBtn = document.querySelector('#sendOtp');
+    const otpForm = document.querySelector('#otpForm');
+
+    const cart = new Map();
+    let shippingFee = 0;
+
+    let activeOtp = null;
+    let otpExpiry = null;
+    let otpAttempts = 0;
+    let lockoutUntil = null;
+    let countdownTimer = null;
+
+    const formatCurrency = value => '$' + value.toLocaleString(undefined, { minimumFractionDigits: 0 });
+
+    function filterProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      const category = categoryFilter.value;
+      const maxPrice = Number(priceRange.value);
+      const stock = stockFilter.value;
+
+      let results = products.filter(p => {
+        const matchesCategory = category === 'all' || p.category === category;
+        const matchesPill = getActivePill() === 'all' || p.category === getActivePill();
+        const matchesPrice = p.price <= maxPrice;
+        const matchesSearch = !query || p.name.toLowerCase().includes(query) || p.blurb.toLowerCase().includes(query);
+        const matchesStock = stock === 'any' || p.stock === stock;
+        return matchesCategory && matchesPill && matchesPrice && matchesSearch && matchesStock;
+      });
+
+      const sort = sortSelect.value;
+      if (sort === 'price-asc') results.sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc') results.sort((a, b) => b.price - a.price);
+      if (sort === 'rating') results.sort((a, b) => b.rating - a.rating);
+
+      renderProducts(results);
+    }
+
+    function renderProducts(list) {
+      resultCount.textContent = `${list.length} item${list.length === 1 ? '' : 's'}`;
+      productGrid.innerHTML = '';
+      if (!list.length) {
+        productGrid.innerHTML = '<div class="card">No items match your filters. Try broadening the price or category.</div>';
+        return;
+      }
+      list.forEach(product => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <figure style="background: linear-gradient(140deg, rgba(255,255,255,0.05), ${product.accent}20); border-color: ${product.accent}44;">
+            <span class="badge">${product.tag}</span>
+            <span>${product.category}</span>
+          </figure>
+          <div>
+            <h3>${product.name}</h3>
+            <p>${product.blurb}</p>
+          </div>
+          <div class="meta">
+            <span class="price">${formatCurrency(product.price)}</span>
+            <span class="rating">★ ${product.rating}</span>
+          </div>
+          <div class="meta">
+            <span class="pill-small">${product.stock === 'low' ? 'Low stock' : 'In stock'}</span>
+            <span class="pill-small">Shipping ready</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-add="${product.id}">Add to cart</button>
+            <button class="btn btn-ghost" type="button">View details</button>
+          </div>
+        `;
+        productGrid.appendChild(card);
+      });
+      attachAddToCart();
+    }
+
+    function attachAddToCart() {
+      document.querySelectorAll('[data-add]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-add');
+          const product = products.find(p => p.id === id);
+          if (!product) return;
+          const existing = cart.get(id) || { ...product, qty: 0 };
+          existing.qty += 1;
+          cart.set(id, existing);
+          updateCart();
+        });
+      });
+    }
+
+    function updateCart() {
+      if (cart.size === 0) {
+        cartList.innerHTML = '<li>No items yet — add products to preview totals.</li>';
+        itemsTotalEl.textContent = '$0';
+        shippingTotalEl.textContent = formatCurrency(shippingFee);
+        orderTotalEl.textContent = formatCurrency(shippingFee);
+        return;
+      }
+      cartList.innerHTML = '';
+      let itemsTotal = 0;
+      cart.forEach(item => {
+        itemsTotal += item.price * item.qty;
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span>${item.name} × ${item.qty}</span>
+          <span>${formatCurrency(item.price * item.qty)}</span>
+        `;
+        cartList.appendChild(li);
+      });
+      itemsTotalEl.textContent = formatCurrency(itemsTotal);
+      shippingTotalEl.textContent = formatCurrency(shippingFee);
+      orderTotalEl.textContent = formatCurrency(itemsTotal + shippingFee);
+    }
+
+    function updatePriceLabel() {
+      priceValue.textContent = '$' + Number(priceRange.value).toLocaleString();
+    }
+
+    function getActivePill() {
+      const active = pillButtons.find(btn => btn.classList.contains('active'));
+      return active ? active.dataset.cat : 'all';
+    }
+
+    pillButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        pillButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        crumb.textContent = btn.dataset.cat === 'all' ? 'All' : btn.textContent;
+        filterProducts();
+      });
+    });
+
+    searchBtn.addEventListener('click', filterProducts);
+    searchInput.addEventListener('input', filterProducts);
+    categoryFilter.addEventListener('change', filterProducts);
+    priceRange.addEventListener('input', () => { updatePriceLabel(); filterProducts(); });
+    sortSelect.addEventListener('change', filterProducts);
+    stockFilter.addEventListener('change', filterProducts);
+
+    shippingForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const method = shippingForm.elements['method'].value;
+      const destination = shippingForm.elements['location'].value;
+      const hasItems = cart.size > 0;
+      const base = method === 'express' ? 35 : method === 'economy' ? 12 : 18;
+      const perItem = 6;
+      const itemCount = Array.from(cart.values()).reduce((sum, item) => sum + item.qty, 0);
+      shippingFee = hasItems ? base + perItem * itemCount : 0;
+      shippingStatus.textContent = hasItems
+        ? `Shipping to ${destination} via ${method} — ${formatCurrency(shippingFee)} shown before payment.`
+        : 'Add items to cart to see shipping totals.';
+      shippingTotalEl.textContent = formatCurrency(shippingFee);
+      updateCart();
+    });
+
+    function startOtpCountdown() {
+      const timerEl = document.createElement('span');
+      timerEl.className = 'pill-small';
+      timerEl.id = 'otpTimer';
+      otpStatus.appendChild(timerEl);
+      clearInterval(countdownTimer);
+      countdownTimer = setInterval(() => {
+        if (!otpExpiry) return;
+        const remaining = otpExpiry - Date.now();
+        if (remaining <= 0) {
+          clearInterval(countdownTimer);
+          otpStatus.textContent = 'OTP expired. Request a new code.';
+          activeOtp = null;
+          otpExpiry = null;
+          return;
+        }
+        const mins = Math.floor(remaining / 60000);
+        const secs = Math.floor((remaining % 60000) / 1000);
+        timerEl.textContent = `Expires in ${mins}:${secs.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    function sendOtp() {
+      if (lockoutUntil && Date.now() < lockoutUntil) {
+        const wait = Math.ceil((lockoutUntil - Date.now()) / 60000);
+        otpStatus.textContent = `Locked out. Try again in ${wait} minute(s).`;
+        return;
+      }
+      activeOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      otpExpiry = Date.now() + 5 * 60 * 1000;
+      otpAttempts = 0;
+      otpStatus.textContent = `OTP sent to ${contactInput.value || 'your contact'} — code expires in 5 minutes.`;
+      startOtpCountdown();
+    }
+
+    function verifyOtp(e) {
+      e.preventDefault();
+      if (!activeOtp) {
+        otpStatus.textContent = 'Request an OTP first.';
+        return;
+      }
+      if (lockoutUntil && Date.now() < lockoutUntil) {
+        const wait = Math.ceil((lockoutUntil - Date.now()) / 60000);
+        otpStatus.textContent = `Locked out for ${wait} minute(s) after too many attempts.`;
+        return;
+      }
+      if (Date.now() > otpExpiry) {
+        otpStatus.textContent = 'OTP expired. Request a new code.';
+        activeOtp = null;
+        return;
+      }
+      const code = otpInput.value.trim();
+      if (code === activeOtp) {
+        otpStatus.textContent = 'OTP verified. Checkout can proceed securely.';
+        clearInterval(countdownTimer);
+        activeOtp = null;
+        return;
+      }
+      otpAttempts += 1;
+      if (otpAttempts >= 5) {
+        lockoutUntil = Date.now() + 10 * 60 * 1000;
+        otpStatus.textContent = 'Too many attempts. Locked for 10 minutes.';
+        return;
+      }
+      const remaining = 5 - otpAttempts;
+      otpStatus.textContent = `Incorrect code. ${remaining} attempt${remaining === 1 ? '' : 's'} left.`;
+    }
+
+    sendOtpBtn.addEventListener('click', sendOtp);
+    otpForm.addEventListener('submit', verifyOtp);
+
+    updatePriceLabel();
+    filterProducts();
+  </script>
+</body>
+</html>
