@@ -5,14 +5,14 @@ Reference mock-ups:
 - Published prototype: https://mprestado.github.io/arngren-plus/
 
 0) ASSIGNMENT CONTEXT (CS 3215 — HUMAN COMPUTER INTERACTION)
-- Institution: CAMARINES SUR POLYTECHNIC COLLEGES, College of Computer Studies (Republic of the Philippines, Nabua, Camarines Sur).
+- Institution: Camarines Sur Polytechnic Colleges, College of Computer Studies (Republic of the Philippines, Nabua, Camarines Sur).
 - Course/Task: Learning Task on Interaction Design Basics for CS 3215 (Human Computer Interaction).
 - Team: BSCS-3A (Group #6) — Jave A. Bacsain, John Louie B. Bagaporo, Frederick D. Ortinero, Marc Justin N. Prestado.
 - Baseline assumption: The original Arngren site (cluttered collage) is the starting point; Arngren Plus is the improved experience we are documenting and implementing.
 
 1) PROBLEM STATEMENT AND GOALS
 - The legacy Arngren site functions like a single cluttered bulletin board: hundreds of overlapping product images, inconsistent colors, no grid, and unclear link targets. Users must scroll and hope to stumble onto the right item; even then link targets are unpredictable.
-- Primary audiences: hobbyists, gadget enthusiasts, ATV/scooter/RC shoppers, and curious international visitors (primarily Norway-based, but globally curious) using desktop, mobile, and assistive tech.
+- Primary audiences: hobbyists, gadget enthusiasts, ATV/scooter/RC shoppers, and curious international visitors (primarily Norway-based, with global reach) using desktop, mobile, and assistive tech.
 - Design pillars from the brief: Organization, Clarity, Functionality, Responsiveness.
 - Additional design goals drawn from the Interaction Design task:
   - Organization: predictable categories, navigation, and layout.
