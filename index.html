@@ -362,6 +362,36 @@
       gap: 6px;
       align-items: center;
     }
+    .code-panel {
+      max-width: 1180px;
+      margin: 20px auto;
+      padding: 0 28px;
+    }
+    .code-block {
+      width: 100%;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: "SFMono-Regular", Consolas, ui-monospace, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      padding: 12px;
+      min-height: 120px;
+      resize: vertical;
+    }
+    .copy-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .copy-feedback {
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 20px;
+    }
     footer {
       max-width: 1180px;
       margin: 28px auto 0;
@@ -494,6 +524,21 @@
       <div class="product-grid" id="productGrid" aria-live="polite"></div>
     </section>
 
+    <section class="code-panel" id="figma-embed">
+      <div class="section-title">
+        <h2>Figma embed code</h2>
+        <span class="pill-small">Copy & paste</span>
+      </div>
+      <div class="panel">
+        <p id="figmaEmbedHelp">Embed the Arngren Plus mockup from Figma in docs or prototypes with this iframe code. Copy and paste it to show the shared prototype link from the brief.</p>
+        <textarea id="figmaCode" class="code-block" aria-describedby="figmaEmbedHelp" readonly></textarea>
+        <div class="copy-row">
+          <button class="btn btn-primary" type="button" id="copyFigma">Copy embed code</button>
+          <div class="copy-feedback" id="copyFeedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="cart-and-checkout" id="cart">
       <div class="panel">
         <h3>Cart & saved</h3>
@@ -572,6 +617,13 @@
       mobility: 'Mobility',
       gadgets: 'Gadgets'
     };
+    const FIGMA_PROTOTYPE_URL = 'https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FcrxVrZiA7DAUt97jdQ4QVR%2FUntitled%3Fnode-id%3D0-1%26t%3DoqojIDjg7kTeqxl7-1';
+    const figmaEmbedCode = [
+      '<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);"',
+      '  width="800" height="450"',
+      `  src="${FIGMA_PROTOTYPE_URL}"`,
+      '  allowfullscreen></iframe>'
+    ].join('\n');
 
     const productGrid = document.querySelector('#productGrid');
     const searchInput = document.querySelector('#searchInput');
@@ -597,6 +649,9 @@
     const contactInput = document.querySelector('#contact');
     const sendOtpBtn = document.querySelector('#sendOtp');
     const otpForm = document.querySelector('#otpForm');
+    const figmaCodeField = document.querySelector('#figmaCode');
+    const copyFigmaBtn = document.querySelector('#copyFigma');
+    const copyFeedback = document.querySelector('#copyFeedback');
 
     const cart = new Map();
     let shippingFee = 0;
@@ -717,6 +772,11 @@
       crumb.textContent = categoryLabels[cat] || 'All';
     }
 
+    function populateFigmaEmbedCode() {
+      if (!figmaCodeField) return;
+      figmaCodeField.value = figmaEmbedCode;
+    }
+
     pillButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         setCategory(btn.dataset.cat);
@@ -820,7 +880,18 @@
 
     sendOtpBtn.addEventListener('click', sendOtp);
     otpForm.addEventListener('submit', verifyOtp);
+    copyFigmaBtn?.addEventListener('click', async () => {
+      if (!figmaCodeField || !copyFeedback) return;
+      try {
+        await navigator.clipboard.writeText(figmaCodeField.value);
+        copyFeedback.textContent = 'Copied! Paste into your docs, site, or prototype.';
+      } catch (err) {
+        figmaCodeField.select();
+        copyFeedback.textContent = 'Text selected. Press Ctrl+C (Cmd+C on Mac) to copy.';
+      }
+    });
 
+    populateFigmaEmbedCode();
     setCategory(categoryFilter.value);
     updatePriceLabel();
     filterProducts();
