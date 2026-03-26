@@ -537,7 +537,7 @@
           <div class="field">
             <label for="otpInput">6-digit code</label>
             <input id="otpInput" name="otpInput" type="text" pattern="[0-9]{6}" maxlength="6" inputmode="numeric" placeholder="123456" aria-describedby="otpHelp">
-            <small id="otpHelp" style="color:var(--muted)">Codes expire after 5 minutes, 5 attempts max, 10-minute lockout after failures.</small>
+            <small id="otpHelp" style="color:var(--muted)">Codes expire after 5 minutes, 5 attempts max, 10-minute lockout after failures. Demo-only: codes stay on-device and are not sent.</small>
           </div>
           <div class="card-actions">
             <button class="btn btn-primary" type="button" id="sendOtp">Send / Resend OTP</button>
@@ -600,6 +600,15 @@
     let countdownTimer = null;
 
     const formatCurrency = value => '$' + value.toLocaleString(undefined, { minimumFractionDigits: 0 });
+    const safeAccent = value => /^#[0-9a-fA-F]{6}$/.test(value) ? value : '#60a5fa';
+    const generateOtp = () => {
+      if (window.crypto && window.crypto.getRandomValues) {
+        const buf = new Uint32Array(1);
+        window.crypto.getRandomValues(buf);
+        return String((buf[0] % 900000) + 100000).padStart(6, '0');
+      }
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    };
 
     function filterProducts() {
       const query = searchInput.value.trim().toLowerCase();
@@ -634,8 +643,9 @@
       list.forEach(product => {
         const card = document.createElement('article');
         card.className = 'card';
+        const accent = safeAccent(product.accent);
         card.innerHTML = `
-          <figure style="background: linear-gradient(140deg, rgba(255,255,255,0.05), ${product.accent}20); border-color: ${product.accent}44;">
+          <figure style="background: linear-gradient(140deg, rgba(255,255,255,0.05), ${accent}20); border-color: ${accent}44;">
             <span class="badge">${product.tag}</span>
             <span>${product.category}</span>
           </figure>
@@ -768,10 +778,10 @@
         otpStatus.textContent = `Locked out. Try again in ${wait} minute(s).`;
         return;
       }
-      activeOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      activeOtp = generateOtp();
       otpExpiry = Date.now() + 5 * 60 * 1000;
       otpAttempts = 0;
-      otpStatus.textContent = `OTP sent to ${contactInput.value || 'your contact'} — code expires in 5 minutes.`;
+      otpStatus.textContent = `Demo OTP generated locally for ${contactInput.value || 'your contact'} — not sent. Code expires in 5 minutes.`;
       startOtpCountdown();
     }
 
@@ -813,6 +823,7 @@
 
     updatePriceLabel();
     filterProducts();
+    otpStatus.textContent = 'Demo-only OTP stays on this device; request a code to verify.';
   </script>
 </body>
 </html>
