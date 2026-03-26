@@ -25,7 +25,7 @@ Reference mock-up: https://mprestado.github.io/arngren-plus/
 - Solution to 4 (Inconsistent info): Standardized product detail pages show gallery, specs table, compatibility, reviews, and “what’s in the box,” reducing bad orders.
 - Solution to 5 (No cart): A persistent cart with quantity edits, save-for-later, and mini-cart preview lets users bundle items and keep state across pages.
 - Solution to 6 (Hidden shipping): Cart and checkout include a shipping estimator (location + method) before payment, showing totals and fees upfront.
-- Solution to 7 (Payment security): Checkout sends a 4-digit OTP to the registered email/number; the user must confirm before charging. Error states for expired, wrong, or missing OTP are shown with retry/resend.
+- Solution to 7 (Payment security): Checkout sends a 6-digit OTP to the registered email/number; the user must confirm before charging. OTPs expire after 5 minutes, attempts are rate-limited (5 tries) before a 10-minute lockout, and error states for expired, wrong, or missing OTP are shown with retry/resend.
 - Solution to 8 (Mobile/responsive): Responsive grid, legible typography, and touch-friendly buttons ensure the flows (browse, cart, OTP) work on phones and tablets.
 
 How flows map to mock-ups (see link above):
