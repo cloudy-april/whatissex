@@ -1,16 +1,34 @@
 ARNGREN REQUIREMENTS, ANALYSIS, AND DESIGN (ARNGREN PLUS)
 Reference mock-up: https://mprestado.github.io/arngren-plus/
 
-1) REQUIREMENTS
-- Current situation: The legacy Arngren site is cluttered, has no real homepage or menu, and forces buyers to scroll a wall of products with little structure. Shipping and payment steps are unclear.
-- What is needed: A structured e-commerce flow with a welcoming homepage, clear categories, strong search/filter, consistent product details, a persistent cart, and a secure, transparent checkout (shipping estimation + OTP confirmation).
-- Who are the users: directed buyers who know the exact item, hobbyists/explorers comparing gadgets, bargain hunters checking deals, and first-time visitors using desktop or mobile (including accessibility users).
-- How they currently shop: Mostly desktop browsing a collage of items, copying details into emails or single-item order forms. There is no multi-item cart, no real-time shipping calculator, and no guided payment confirmation.
-- How they should be able to shop: Enter via a homepage with featured/seasonal items, browse categories or search with filters, open product pages with specs/reviews, add multiple items to a cart, estimate shipping early, and complete checkout with an OTP to verify payment.
+1) PROBLEM STATEMENT AND GOALS
+- The legacy Arngren site functions like a single cluttered bulletin board: hundreds of overlapping product images, inconsistent colors, no grid, and unclear link targets. Users must scroll and hope to stumble onto the right item.
+- Primary audiences: hobbyists, gadget enthusiasts, ATV/scooter/RC shoppers, and curious international visitors (desktop and mobile, including accessibility users).
+- Design goals drawn from the Interaction Design task:
+  - Organization: predictable categories, navigation, and layout.
+  - Clarity: readable hierarchy, consistent text/image treatment, and trustworthy product details.
+  - Functionality: search/filter, cart, shipping estimation, and secure checkout.
+  - Responsiveness: layouts that hold up on phones and tablets.
 
-2) ANALYSIS — 8 ISSUE SCENARIOS IN THE CURRENT PROCESS
+2) CURRENT EXPERIENCE (PAIN POINTS)
+- Manual scavenging: Users scroll a collage without a homepage, hero, or categories.
+- Uncertain actions: Links and buttons are unpredictable; shipping and payment flows are opaque.
+- Missing structure: No keyword search, filters, or sort; no cart or saved state for multi-item orders.
+- Mobile breakage: Columns and tiny text fail on small screens.
+
+3) REQUIREMENTS FOR ARNGREN PLUS
+- Provide a welcoming homepage with featured/seasonal items and immediate entry points to categories.
+- Add structured navigation: persistent top nav, category list, breadcrumbs, and predictable link targets.
+- Deliver strong search/filter/sort for rapid item discovery across categories.
+- Standardize product detail pages with gallery, specs, availability, pricing, reviews, and “what’s in the box.”
+- Support a persistent cart (multi-item, quantity edits, save-for-later) that keeps state across pages.
+- Show shipping estimation early (location + method) so totals are transparent before payment.
+- Ensure secure checkout with OTP confirmation (6-digit code, 5-minute expiry, 5-attempt limit, 10-minute lockout on failure).
+- Make the full flow responsive and accessible (touch targets, legible type, contrast, and focus states).
+
+4) ANALYSIS — 8 ISSUE SCENARIOS IN THE LEGACY SITE
 1. Visual overload: Dense collage causes choice paralysis and missed products.
-2. No structured navigation: Users cannot jump to a category (RC, drones, tools); they bounce after hunting.
+2. No structured navigation: Users cannot jump to RC, drones, tools, or vehicles and quickly bounce.
 3. Weak search/filter: No keyword search, filters, or sort; users manually scan dozens of items.
 4. Inconsistent product info: Specs, pricing, and availability are unclear, leading to wrong purchases or support tickets.
 5. No cart or saved state: Buyers can only order one item at a time and re-enter shipping/payment data, inflating effort and shipping fees.
@@ -18,9 +36,9 @@ Reference mock-up: https://mprestado.github.io/arngren-plus/
 7. Uncertain payment security: No visible verification step; users worry about fraud or mistyped orders.
 8. Poor mobile/responsive experience: Columns and tiny text break on phones, blocking on-the-go shopping.
 
-3) DESIGN — HOW THE ARNGREN PLUS MOCK-UPS SOLVE EACH ISSUE
+5) DESIGN RESPONSES IN THE ARNGREN PLUS MOCK-UPS
 - Solution to 1 (Visual overload): A real homepage with hero, featured items, and grid spacing introduces the catalog gradually before deep browsing.
-- Solution to 2 (No navigation): A persistent top nav and side category list let users jump directly to product groups; breadcrumbs keep location clear.
+- Solution to 2 (No navigation): A persistent top nav and side category list let users jump directly to product groups; breadcrumbs keep location clear; links have predictable targets.
 - Solution to 3 (Weak search/filter): Global search with autocomplete plus filters (price, rating, stock, category) and sort controls surface the right items quickly.
 - Solution to 4 (Inconsistent info): Standardized product detail pages show gallery, specs table, compatibility, reviews, and “what’s in the box,” reducing bad orders.
 - Solution to 5 (No cart): A persistent cart with quantity edits, save-for-later, and mini-cart preview lets users bundle items and keep state across pages.
@@ -28,7 +46,7 @@ Reference mock-up: https://mprestado.github.io/arngren-plus/
 - Solution to 7 (Payment security): Checkout sends a 6-digit OTP to the registered email/number; the user must confirm before charging. OTPs expire after 5 minutes, attempts are rate-limited (5 tries) before a 10-minute lockout, and error states for expired, wrong, or missing OTP are shown with retry/resend.
 - Solution to 8 (Mobile/responsive): Responsive grid, legible typography, and touch-friendly buttons ensure the flows (browse, cart, OTP) work on phones and tablets.
 
-How flows map to mock-ups (see link above):
-- Direct search → product detail → add to cart → OTP-confirmed checkout.
+6) FLOW MAP (SEE MOCK-UPS)
+- Direct search → product detail → add to cart → shipping estimation → OTP-confirmed checkout.
 - Category browse → compare specs → cart → shipping estimator → secure payment.
 - Cart management → shipping calculation → OTP confirmation screens with explicit success/error handling.
