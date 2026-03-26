@@ -4,6 +4,11 @@ Reference mock-ups:
 - Primary Figma: https://www.figma.com/design/crxVrZiA7DAUt97jdQ4QVR/Untitled?node-id=0-1&t=oqojIDjg7kTeqxl7-1
 - Published prototype: https://mprestado.github.io/arngren-plus/
 
+How to pull image assets:
+- From Figma: Open the link above → select the component or frame → right-click → Export (PNG/JPG/SVG as needed). Use 2x for retina if available.
+- From the published prototype: Right-click the displayed asset → “Save image as…” for quick grabs when Figma export is unavailable.
+- If replacing with stock placeholders: Use consistent aspect ratios (hero ~16:9, cards ~4:3 square-ish) and compress to <300 KB with a free optimizer before committing.
+
 0) ASSIGNMENT CONTEXT (CS 3215 — HUMAN COMPUTER INTERACTION)
 - Institution: CAMARINES SUR POLYTECHNIC COLLEGES, College of Computer Studies (Republic of the Philippines, Nabua, Camarines Sur).
 - Course/Task: Learning Task on Interaction Design Basics for CS 3215 (Human Computer Interaction).
@@ -45,6 +50,7 @@ Reference mock-ups:
 - 6. Hidden shipping costs: Costs are revealed late (or offline), causing abandonment when totals rise.
 - 7. Uncertain payment security: No visible verification step; users worry about fraud or mistyped orders.
 - 8. Poor mobile/responsive experience: Columns and tiny text break on phones, blocking on-the-go shopping.
+- 9. Inconsistent catalog design: Categories, labels, and layouts change per page, mixing promos with products and duplicating groups, so users cannot predict where an item lives or what a card will do.
 
 5) DESIGN RESPONSES IN THE ARNGREN PLUS MOCK-UPS
 - Solution to 1 (Visual overload): A real homepage with hero, featured items, and grid spacing introduces the catalog gradually before deep browsing.
@@ -55,6 +61,7 @@ Reference mock-ups:
 - Solution to 6 (Hidden shipping): Cart and checkout include a shipping estimator (location + method) before payment, showing totals and fees upfront.
 - Solution to 7 (Payment security): Checkout sends a 6-digit OTP to the registered email/number; the user must confirm before charging. OTPs expire after 5 minutes, attempts are rate-limited (5 tries) before a 10-minute lockout, and error states for expired, wrong, or missing OTP are shown with retry/resend.
 - Solution to 8 (Mobile/responsive): Responsive grid, legible typography, and touch-friendly buttons ensure the flows (browse, cart, OTP) work on phones and tablets.
+- Solution to 9 (Inconsistent catalog design): A consistent taxonomy with well-defined categories, standardized card and detail templates, and clear breadcrumb/nav patterns keep categories, promos, and external links separate. Users can predict where items belong and what a click will do.
 
 6) FLOW MAP (SEE MOCK-UPS)
 - Direct search → product detail → add to cart → shipping estimation → OTP-confirmed checkout.
