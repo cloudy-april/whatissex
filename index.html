@@ -565,6 +565,14 @@
       { id: 'multitool', name: 'ArcFlex Multi-tool', category: 'gadgets', price: 119, rating: 4.5, stock: 'in', tag: 'Titanium', accent: '#f59e0b', blurb: 'Everyday carry multi-tool with locking drivers, rescue strap cutter, and 25-year warranty.' }
     ];
 
+    const categoryLabels = {
+      all: 'All',
+      drones: 'Drones',
+      rc: 'RC & Robotics',
+      mobility: 'Mobility',
+      gadgets: 'Gadgets'
+    };
+
     const productGrid = document.querySelector('#productGrid');
     const searchInput = document.querySelector('#searchInput');
     const searchBtn = document.querySelector('#searchBtn');
@@ -609,11 +617,10 @@
 
       let results = products.filter(p => {
         const matchesCategory = category === 'all' || p.category === category;
-        const matchesPill = getActivePill() === 'all' || p.category === getActivePill();
         const matchesPrice = p.price <= maxPrice;
         const matchesSearch = !query || p.name.toLowerCase().includes(query) || p.blurb.toLowerCase().includes(query);
         const matchesStock = stock === 'any' || p.stock === stock;
-        return matchesCategory && matchesPill && matchesPrice && matchesSearch && matchesStock;
+        return matchesCategory && matchesPrice && matchesSearch && matchesStock;
       });
 
       const sort = sortSelect.value;
@@ -634,10 +641,11 @@
       list.forEach(product => {
         const card = document.createElement('article');
         card.className = 'card';
+        const categoryLabel = categoryLabels[product.category] || product.category;
         card.innerHTML = `
           <figure style="background: linear-gradient(140deg, rgba(255,255,255,0.05), ${product.accent}20); border-color: ${product.accent}44;">
             <span class="badge">${product.tag}</span>
-            <span>${product.category}</span>
+            <span>${categoryLabel}</span>
           </figure>
           <div>
             <h3>${product.name}</h3>
@@ -703,23 +711,25 @@
       priceValue.textContent = '$' + Number(priceRange.value).toLocaleString();
     }
 
-    function getActivePill() {
-      const active = pillButtons.find(btn => btn.classList.contains('active'));
-      return active ? active.dataset.cat : 'all';
+    function setCategory(cat) {
+      categoryFilter.value = cat;
+      pillButtons.forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+      crumb.textContent = categoryLabels[cat] || 'All';
     }
 
     pillButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        pillButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        crumb.textContent = btn.dataset.cat === 'all' ? 'All' : btn.textContent;
+        setCategory(btn.dataset.cat);
         filterProducts();
       });
     });
 
     searchBtn.addEventListener('click', filterProducts);
     searchInput.addEventListener('input', filterProducts);
-    categoryFilter.addEventListener('change', filterProducts);
+    categoryFilter.addEventListener('change', () => {
+      setCategory(categoryFilter.value);
+      filterProducts();
+    });
     priceRange.addEventListener('input', () => { updatePriceLabel(); filterProducts(); });
     sortSelect.addEventListener('change', filterProducts);
     stockFilter.addEventListener('change', filterProducts);
@@ -811,6 +821,7 @@
     sendOtpBtn.addEventListener('click', sendOtp);
     otpForm.addEventListener('submit', verifyOtp);
 
+    setCategory(categoryFilter.value);
     updatePriceLabel();
     filterProducts();
   </script>
