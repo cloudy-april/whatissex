@@ -1,10 +1,20 @@
 ARNGREN REQUIREMENTS, ANALYSIS, AND DESIGN (ARNGREN PLUS)
-Reference mock-up: https://mprestado.github.io/arngren-plus/
+
+Reference mock-ups:
+- Primary Figma: https://www.figma.com/design/crxVrZiA7DAUt97jdQ4QVR/Untitled?node-id=0-1&t=oqojIDjg7kTeqxl7-1
+- Published prototype: https://mprestado.github.io/arngren-plus/
+
+0) ASSIGNMENT CONTEXT (CS 3215 — HUMAN COMPUTER INTERACTION)
+- Institution: CAMARINES SUR POLYTECHNIC COLLEGES, College of Computer Studies (Republic of the Philippines, Nabua, Camarines Sur).
+- Course/Task: Learning Task on Interaction Design Basics for CS 3215 (Human Computer Interaction).
+- Team: BSCS-3A (Group #6) — Jave A. Bacsain, John Louie B. Bagaporo, Frederick D. Ortinero, Marc Justin N. Prestado.
+- Baseline assumption: The original Arngren site (cluttered collage) is the starting point; Arngren Plus is the improved experience we are documenting and implementing.
 
 1) PROBLEM STATEMENT AND GOALS
-- The legacy Arngren site functions like a single cluttered bulletin board: hundreds of overlapping product images, inconsistent colors, no grid, and unclear link targets. Users must scroll and hope to stumble onto the right item.
-- Primary audiences: hobbyists, gadget enthusiasts, ATV/scooter/RC shoppers, and curious international visitors (desktop and mobile, including accessibility users).
-- Design goals drawn from the Interaction Design task:
+- The legacy Arngren site functions like a single cluttered bulletin board: hundreds of overlapping product images, inconsistent colors, no grid, and unclear link targets. Users must scroll and hope to stumble onto the right item; even then link targets are unpredictable.
+- Primary audiences: hobbyists, gadget enthusiasts, ATV/scooter/RC shoppers, and curious international visitors (primarily Norway-based, but globally curious) using desktop, mobile, and assistive tech.
+- Design pillars from the brief: Organization, Clarity, Functionality, Responsiveness.
+- Additional design goals drawn from the Interaction Design task:
   - Organization: predictable categories, navigation, and layout.
   - Clarity: readable hierarchy, consistent text/image treatment, and trustworthy product details.
   - Functionality: search/filter, cart, shipping estimation, and secure checkout.
@@ -27,18 +37,18 @@ Reference mock-up: https://mprestado.github.io/arngren-plus/
 - Make the full flow responsive and accessible (touch targets, legible type, contrast, and focus states).
 
 4) ANALYSIS — 8 ISSUE SCENARIOS IN THE LEGACY SITE
-1. Visual overload: Dense collage causes choice paralysis and missed products.
-2. No structured navigation: Users cannot jump to RC, drones, tools, or vehicles and quickly bounce.
-3. Weak search/filter: No keyword search, filters, or sort; users manually scan dozens of items.
-4. Inconsistent product info: Specs, pricing, and availability are unclear, leading to wrong purchases or support tickets.
-5. No cart or saved state: Buyers can only order one item at a time and re-enter shipping/payment data, inflating effort and shipping fees.
-6. Hidden shipping costs: Costs are revealed late (or offline), causing abandonment when totals rise.
-7. Uncertain payment security: No visible verification step; users worry about fraud or mistyped orders.
-8. Poor mobile/responsive experience: Columns and tiny text break on phones, blocking on-the-go shopping.
+- 1. Visual overload: Dense collage causes choice paralysis and missed products.
+- 2. No structured navigation: Users cannot jump to RC, drones, tools, or vehicles and quickly bounce.
+- 3. Weak search/filter: No keyword search, filters, or sort; users manually scan dozens of items.
+- 4. Inconsistent product info: Specs, pricing, and availability are unclear, leading to wrong purchases or support tickets.
+- 5. No cart or saved state: Buyers can only order one item at a time and re-enter shipping/payment data, inflating effort and shipping fees.
+- 6. Hidden shipping costs: Costs are revealed late (or offline), causing abandonment when totals rise.
+- 7. Uncertain payment security: No visible verification step; users worry about fraud or mistyped orders.
+- 8. Poor mobile/responsive experience: Columns and tiny text break on phones, blocking on-the-go shopping.
 
 5) DESIGN RESPONSES IN THE ARNGREN PLUS MOCK-UPS
 - Solution to 1 (Visual overload): A real homepage with hero, featured items, and grid spacing introduces the catalog gradually before deep browsing.
-- Solution to 2 (No navigation): A persistent top nav and side category list let users jump directly to product groups; breadcrumbs keep location clear; links have predictable targets.
+- Solution to 2 (No navigation): A persistent top nav and side category list let users jump directly to product groups; breadcrumbs keep location clear; links have predictable targets. The nav also answers the brief’s “Poor Navigation” fix with categories (Electronics, Vehicles, Gadgets) plus a search bar.
 - Solution to 3 (Weak search/filter): Global search with autocomplete plus filters (price, rating, stock, category) and sort controls surface the right items quickly.
 - Solution to 4 (Inconsistent info): Standardized product detail pages show gallery, specs table, compatibility, reviews, and “what’s in the box,” reducing bad orders.
 - Solution to 5 (No cart): A persistent cart with quantity edits, save-for-later, and mini-cart preview lets users bundle items and keep state across pages.
